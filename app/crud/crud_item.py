@@ -1,15 +1,14 @@
 from fastapi.encoders import jsonable_encoder
 from sqlmodel import Session
 
-from .base import CRUDBase
 from app.models.item import Item
-from app.schemas.item import ItemCreate, ItemUpdate
+from app.schemas.item import ItemCreate
+
+from .base import CRUDBase
 
 
 class CRUDItem(CRUDBase[Item, ItemCreate]):
-    def create_with_owner(
-        self, db: Session, *, obj_in: ItemCreate
-    ) -> Item:
+    def create_with_owner(self, db: Session, *, obj_in: ItemCreate) -> Item:
         obj_in_data = jsonable_encoder(obj_in)
         db_obj = self.model(**obj_in_data)
         db.add(db_obj)
