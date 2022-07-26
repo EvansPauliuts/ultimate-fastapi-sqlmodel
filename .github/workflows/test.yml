@@ -1,16 +1,18 @@
-name: App workflow
+name: test
 
 on: [push]
 
 jobs:
   tests:
-    name: Testing
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: '3.10'
+      - name: Display Python version
+        run: python --version
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -27,13 +29,13 @@ jobs:
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
 
       - name: Install library
         run: poetry install --no-interaction
 
-      - name: Run tests
-        run: |
-          source .venv/bin/activate
-          pytest app/tests/
+#       - name: Run tests
+#         run: |
+#             chmod +x ./scripts/test.sh
+#             ./scripts/test.sh
+#         shell: bash
