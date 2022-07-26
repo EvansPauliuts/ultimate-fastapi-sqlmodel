@@ -8,8 +8,37 @@ authors = ["Evans Pauliuts <pauliutsevans@gmail.com>"]
 python = "^3.10"
 fastapi = "^0.79.0"
 uvicorn = "^0.18.2"
+python-multipart = "^0.0.5"
+email-validator = "^1.2.1"
+requests = "^2.28.1"
+celery = "^5.2.7"
+emails = "^0.6"
+raven = "^6.10.0"
+gunicorn = "^20.1.0"
+Jinja2 = "^3.1.2"
+psycopg2-binary = "^2.9.3"
+alembic = "^1.8.1"
+sqlmodel = "^0.0.6"
+pytest = "^7.1.2"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+tenacity = "^8.0.1"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
+mypy = "^0.971"
+isort = "^5.10.1"
+black = "^22.6.0"
+autoflake = "^1.4"
+flake8 = "^4.0.1"
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 88
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
