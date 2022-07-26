@@ -20,9 +20,10 @@ class Settings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
-    SQLALCHEMY_DATABASE_URI: PostgresDsn | None = None
+    SQLMODEL_DATABASE_URI: PostgresDsn | None = None
+    SQLMODEL_DATABASE_CLIENT: str | None = None
 
-    @validator('SQLALCHEMY_DATABASE_URI', pre=True)
+    @validator('SQLMODEL_DATABASE_URI', pre=True)
     def assemble_db_connection(cls, v: str | None, values: dict[str, Any]) -> Any:
         if isinstance(v, str):
             return v
