@@ -24,6 +24,7 @@ python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 tenacity = "^8.0.1"
 python-dotenv = "^0.20.0"
+pre-commit = "^2.20.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.971"
