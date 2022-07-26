@@ -27,12 +27,13 @@ python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.971"
-isort = "^5.10.1"
+isort = "5.10.1"
 black = "^22.6.0"
 autoflake = "^1.4"
 flake8 = "^4.0.1"
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
+toml = "^0.10.2"
 
 [tool.isort]
 multi_line_output = 3

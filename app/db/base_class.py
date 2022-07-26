@@ -6,4 +6,3 @@ SelectOfScalar.inherit_cache = True  # type: ignore
 Select.inherit_cache = True  # type: ignore
 
 Base = declarative_base(metadata=SQLModel.metadata)
-
