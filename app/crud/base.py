@@ -1,21 +1,22 @@
-from typing import Any, Generic, Type, TypeVar
+from typing import Any
+from typing import Generic
+from typing import Type
+from typing import TypeVar
 
-from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel
-from sqlmodel import Session, select
+from sqlmodel import select
+from sqlmodel import Session
+from sqlmodel import SQLModel
 
-from app.db.base_class import Base
-
-ModelType = TypeVar("ModelType", bound=Base)
-CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
-UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
+ModelType = TypeVar("ModelType", bound=SQLModel)
+CreateSchemaType = TypeVar("CreateSchemaType", bound=SQLModel)
+UpdateSchemaType = TypeVar("UpdateSchemaType", bound=SQLModel)
 
 
-class CRUDBase(Generic[ModelType, CreateSchemaType]):
+class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def __init__(self, model: Type[ModelType]):
         self.model = model
 
-    def get(self, db: Session, item_id: int) -> ModelType | None:
+    def get(self, db: Session, item_id: int | None) -> ModelType | None:
         item = db.get(self.model, item_id)
         return item
 
@@ -26,19 +27,14 @@ class CRUDBase(Generic[ModelType, CreateSchemaType]):
         return db.exec(get_items.offset(skip).limit(limit)).all()
 
     def create(self, db: Session, *, obj_in: CreateSchemaType) -> ModelType:
-        obj_in_data = jsonable_encoder(obj_in)
-        db_obj = self.model.from_orm(**obj_in_data)
+        db_obj = self.model.from_orm(obj_in)
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
         return db_obj
 
     def update(
-        self,
-        db: Session,
-        *,
-        db_obj: ModelType,
-        obj_in: UpdateSchemaType | dict[str, Any]
+        self, db: Session, *, db_obj: ModelType, obj_in: UpdateSchemaType
     ) -> ModelType:
         item_data = obj_in.dict(exclude_unset=True)
 
@@ -50,7 +46,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType]):
         db.refresh(db_obj)
         return db_obj
 
-    def remove(self, db: Session, *, item_id: int) -> ModelType:
+    def remove(self, db: Session, *, item_id: int | None) -> Any:
         obj = db.get(self.model, item_id)
         db.delete(obj)
         db.commit()

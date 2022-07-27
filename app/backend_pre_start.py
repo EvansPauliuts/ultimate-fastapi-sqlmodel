@@ -1,9 +1,13 @@
 import logging
-
-from sqlmodel import Session
-from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
+from typing import Generator
 
 from app.db.session import engine
+from sqlmodel import Session
+from tenacity import after_log
+from tenacity import before_log
+from tenacity import retry
+from tenacity import stop_after_attempt
+from tenacity import wait_fixed
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -18,10 +22,9 @@ wait_seconds = 1
     before=before_log(logger, logging.INFO),
     after=after_log(logger, logging.WARN),
 )
-def init() -> None:
+def init() -> Generator:
     try:
         with Session(engine) as session:
-            session.exec("SELECT 1")
             yield session
     except Exception as e:
         logger.error(e)
