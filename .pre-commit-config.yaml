@@ -37,5 +37,5 @@ repos:
     rev: 'v0.971'
     hooks:
     -   id: mypy
-        files: ^app/
+        files: .app/
         args: []

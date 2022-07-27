@@ -34,8 +34,16 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
 
-#       - name: Run tests
-#         run: |
-#             chmod +x ./scripts/test.sh
-#             ./scripts/test.sh
-#         shell: bash
+      - name: Format autoflake, black, isort
+        shell: bash
+        run: poetry run bash ./scripts/format.sh
+
+      - name: Format-imports
+        shell: bash
+        run: poetry run bash ./scripts/format-imports.sh
+
+      - name: Run tests
+        shell: bash
+        run: |
+            chmod +x ./tests-start.sh
+            ./tests-start.sh

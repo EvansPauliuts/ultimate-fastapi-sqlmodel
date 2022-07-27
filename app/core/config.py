@@ -1,6 +1,9 @@
 from typing import Any
 
-from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
+from pydantic import AnyHttpUrl
+from pydantic import BaseSettings
+from pydantic import PostgresDsn
+from pydantic import validator
 
 
 class Settings(BaseSettings):
@@ -16,7 +19,6 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
-    PROJECT_NAME: str
     POSTGRES_SERVER: str
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
