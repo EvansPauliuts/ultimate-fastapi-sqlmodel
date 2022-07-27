@@ -1,7 +1,7 @@
 import logging
 from typing import Generator
 
-from app.db.session import engine
+from db.session import engine
 from sqlmodel import Session
 from tenacity import after_log
 from tenacity import before_log
