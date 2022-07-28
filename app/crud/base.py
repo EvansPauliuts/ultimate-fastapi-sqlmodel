@@ -3,13 +3,15 @@ from typing import Generic
 from typing import Type
 from typing import TypeVar
 
+from fastapi.encoders import jsonable_encoder
+from pydantic import BaseModel
 from sqlmodel import select
 from sqlmodel import Session
 from sqlmodel import SQLModel
 
 ModelType = TypeVar("ModelType", bound=SQLModel)
-CreateSchemaType = TypeVar("CreateSchemaType", bound=SQLModel)
-UpdateSchemaType = TypeVar("UpdateSchemaType", bound=SQLModel)
+CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
+UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 
 
 class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
@@ -34,12 +36,22 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return db_obj
 
     def update(
-        self, db: Session, *, db_obj: ModelType, obj_in: UpdateSchemaType
+        self,
+        db: Session,
+        *,
+        db_obj: ModelType,
+        obj_in: UpdateSchemaType | dict[str, Any]
     ) -> ModelType:
-        item_data = obj_in.dict(exclude_unset=True)
+        obj_data = jsonable_encoder(db_obj)
 
-        for key, value in item_data.items():
-            setattr(db_obj, key, value)
+        if isinstance(obj_in, dict):
+            update_data = obj_in
+        else:
+            update_data = obj_in.dict(exclude_unset=True)
+
+        for field in obj_data:
+            if field in update_data:
+                setattr(db_obj, field, update_data[field])
 
         db.add(db_obj)
         db.commit()

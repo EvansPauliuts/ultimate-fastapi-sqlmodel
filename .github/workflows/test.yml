@@ -51,6 +51,6 @@ jobs:
         shell: bash
         run: poetry run bash ./scripts/format-imports.sh
 
-      - name: Run unit tests
-        run: |
-          poetry run pytest ./app
+#       - name: Run unit tests
+#         run: |
+#           poetry run pytest ./app

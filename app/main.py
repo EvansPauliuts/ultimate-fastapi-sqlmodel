@@ -16,7 +16,7 @@ def on_startup() -> None:
 
 
 @app.get("/ping")
-def pong():
+def pong() -> dict[str, str]:
     return {"ping": "pong!"}
 
 
