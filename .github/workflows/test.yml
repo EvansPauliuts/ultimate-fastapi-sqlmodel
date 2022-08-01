@@ -45,11 +45,12 @@ jobs:
 
       - name: Format autoflake, black, isort
         shell: bash
-        run: poetry run bash ./exec_scripts/format.sh
+        run: poetry run bash ./scripts/format.sh
 
       - name: Format-imports
         shell: bash
-        run: poetry run bash ./exec_scripts/format-imports.sh
+        run: poetry run bash ./scripts/format-imports.sh
 
-      - name: Run unit tests
-        run: make test-dev
+#      - name: Run unit tests
+#        shell: bash
+#        run: poetry run bash ./scripts/test.sh
