@@ -45,7 +45,7 @@ jobs:
 
       - name: Format autoflake, black, isort
         shell: bash
-        run: poetry run bash ./scripts/imports.sh
+        run: poetry run bash ./scripts/format.sh
 
       - name: Format-imports
         shell: bash
