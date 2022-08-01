@@ -12,6 +12,7 @@ lint = $(app_script)/lint.sh
 .PHONY: format check-format lint mypy mypy-tests test-local test-dev test-dev-cov clean poetry_version version runapp build help init_data
 
 format:
+	autoflake --remove-all-unused-imports --remove-unused-variables --in-place ./app --exclude=__init__.py
 	$(isort)
 	$(black)
 
