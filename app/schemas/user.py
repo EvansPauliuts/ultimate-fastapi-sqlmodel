@@ -4,7 +4,7 @@ from sqlmodel import SQLModel
 
 # Shared properties
 class UserBase(SQLModel):
-    email: EmailStr | None = None
+    email: EmailStr
     is_active: bool | None = True
     is_superuser: bool = False
     full_name: str | None = None

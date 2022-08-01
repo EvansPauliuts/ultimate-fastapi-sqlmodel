@@ -1,7 +1,8 @@
 import logging
 from typing import Generator
 
-from db.session import engine
+from app.db.init_db import init_db
+from app.db.session import engine
 from sqlmodel import Session
 
 logging.basicConfig(level=logging.INFO)
@@ -10,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 def init() -> Generator:
     with Session(engine) as session:
+        init_db(session)
         yield session
 
 

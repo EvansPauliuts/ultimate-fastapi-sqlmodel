@@ -9,7 +9,7 @@ mypy = mypy $(app_root)
 mypy_tests = mypy $(app_root) $(tests_src)
 lint = $(app_script)/lint.sh
 
-.PHONY: format check-format lint mypy mypy-tests test-local test-dev test-dev-cov clean poetry_version version runapp build help
+.PHONY: format check-format lint mypy mypy-tests test-local test-dev test-dev-cov clean poetry_version version runapp build help init_data
 
 format:
 	$(isort)
@@ -32,7 +32,7 @@ test-local:
 	pytest $(tests_src) --cov=$(app_root)
 
 test-dev:
-	$(app_script)/test.sh
+	pytest $(app_root)
 
 test-dev-cov:
 	$(app_script)/test-cov-html.sh
@@ -63,9 +63,11 @@ version: poetry_version
 	$(eval NEW_VERS := $(shell cat pyproject.toml | grep "^version = \"*\"" | cut -d'"' -f2))
 	@sed -i "" "s/__version__ = .*/__version__ = \"$(NEW_VERS)\"/g" $(app_root)/__init__.py
 
+init_data:
+	poetry run ps
 
 runapp:
-	poetry run bash run.sh
+	poetry run run.sh
 	@echo "Running!!!"
 
 build:

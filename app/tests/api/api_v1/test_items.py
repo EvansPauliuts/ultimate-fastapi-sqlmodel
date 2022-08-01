@@ -1,20 +1,24 @@
+from app.core.config import settings
+from app.tests.utils.item import create_random_item
 from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from app.core.config import settings
-from app.tests.utils.item import create_random_item
 
-
-def test_create_item(session: Session, client: TestClient) -> None:
+def test_create_item(
+    client: TestClient,
+    superuser_token_headers: dict,
+    session: Session,
+) -> None:
     data = {"title": "Foo", "description": "Fighters"}
 
     response = client.post(
         f"{settings.API_V1_STR}/items/",
+        headers=superuser_token_headers,
         json=data,
     )
     content = response.json()
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     assert content["title"] == data["title"]
     assert content["description"] == data["description"]
     assert "id" in content

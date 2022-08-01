@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .api.api_v1.api import api_router
 from .core.config import settings
-from .db.session import init_db
+from .db.session import session_db
 
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
@@ -12,7 +12,7 @@ app = FastAPI(
 
 @app.on_event("startup")
 def on_startup() -> None:
-    init_db()
+    session_db()
 
 
 @app.get("/ping")

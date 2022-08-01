@@ -43,15 +43,15 @@ class Settings(BaseSettings):
             path=f"/{values.get('POSTGRES_DB') or ''}",
         )
 
-    EMAIL_TEST_USER: EmailStr = "test@example.com"  # type: ignore
-    # FIRST_SUPERUSER: EmailStr
-    # FIRST_SUPERUSER_PASSWORD: str
+    EMAIL_TEST_USER: EmailStr = "test@test.com"  # type: ignore
+    FIRST_SUPERUSER: EmailStr
+    FIRST_SUPERUSER_PASSWORD: str
     USERS_OPEN_REGISTRATION: bool = False
 
     class Config:
         case_sensitive = True
         env_file = ".env"
-        env_file_encoding = "utf-8"
+        # env_file_encoding = "utf-8"
 
 
 settings = Settings()

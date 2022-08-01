@@ -4,6 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["Evans Pauliuts <pauliutsevans@gmail.com>"]
 
+packages = [
+    {include = "exec_scripts", from = "app"}
+]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.79.0"
@@ -37,6 +41,9 @@ pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 toml = "^0.10.2"
 
+[tool.black]
+skip-string-normalization = true
+
 [tool.isort]
 multi_line_output = 3
 include_trailing_comma = true
@@ -46,3 +53,6 @@ line_length = 88
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+ps = "app.exec_scripts.prestart:pre_config"
