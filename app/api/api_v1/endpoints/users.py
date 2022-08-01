@@ -126,7 +126,7 @@ def read_user_by_id(
 def update_user(
     *, db: Session = Depends(deps.get_db), user_id: int, user_in: schemas.UserUpdate
 ) -> Any:
-    user = crud.user.get(db, id=user_id)
+    user = crud.user.get(db, uuid=user_id)
 
     if not user:
         raise HTTPException(

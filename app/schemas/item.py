@@ -16,20 +16,3 @@ class ItemRead(ItemBase):
 
 class ItemUpdate(ItemBase):
     pass
-
-
-#
-# class ItemInDBBase(ItemBase):
-#     id: int
-#     title: str
-#
-#     class Config:
-#         orm_mode = True
-#
-#
-# class Item(ItemInDBBase):
-#     pass
-#
-#
-# class ItemInDB(ItemInDBBase):
-#     pass
