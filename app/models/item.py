@@ -1,8 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlmodel import Field
-from sqlmodel import Relationship
-from sqlmodel import SQLModel
+from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
     from .user import User  # noqa: F401

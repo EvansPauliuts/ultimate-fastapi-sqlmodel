@@ -1,13 +1,8 @@
-from typing import Any
-from typing import Generic
-from typing import Type
-from typing import TypeVar
+from typing import Any, Generic, Type, TypeVar
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlmodel import select
-from sqlmodel import Session
-from sqlmodel import SQLModel
+from sqlmodel import Session, SQLModel, select
 
 ModelType = TypeVar("ModelType", bound=SQLModel)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)

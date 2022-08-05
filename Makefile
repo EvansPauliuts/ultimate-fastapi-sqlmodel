@@ -27,6 +27,9 @@ mypy-tests:
 test:
 	poetry run pytest --cov=$(app_root)
 
+test-vvv:
+	poetry run pytest --cov=$(app_root) -vvv
+
 test-xml:
 	poetry run pytest --cov=$(app_root) --cov-report=xml
 

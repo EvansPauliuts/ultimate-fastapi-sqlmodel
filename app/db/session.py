@@ -1,6 +1,6 @@
+from sqlmodel import SQLModel, create_engine
+
 from app.core.config import settings
-from sqlmodel import create_engine
-from sqlmodel import SQLModel
 
 sqlite_file_name = settings.SQLMODEL_DATABASE_CLIENT
 sqlite_url = f"sqlite:///{sqlite_file_name}"

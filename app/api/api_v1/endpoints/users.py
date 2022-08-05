@@ -1,18 +1,13 @@
 from typing import Any
 
-from app import crud
-from app import models
-from app import schemas
-from app.api import deps
-from app.core.config import settings
-from fastapi import APIRouter
-from fastapi import Body
-from fastapi import Depends
-from fastapi import HTTPException
-from fastapi import status
+from fastapi import APIRouter, Body, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlmodel import Session
+
+from app import crud, models, schemas
+from app.api import deps
+from app.core.config import settings
 
 router = APIRouter()
 
