@@ -1,10 +1,10 @@
+from fastapi.testclient import TestClient
+from sqlmodel import Session
+
 from app import crud
 from app.core.config import settings
 from app.schemas import UserCreate
-from app.tests.utils.utils import random_email
-from app.tests.utils.utils import random_lower_string
-from fastapi.testclient import TestClient
-from sqlmodel import Session
+from app.tests.utils.utils import random_email, random_lower_string
 
 
 def test_create_user(

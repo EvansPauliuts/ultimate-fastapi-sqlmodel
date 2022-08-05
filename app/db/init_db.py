@@ -1,10 +1,10 @@
 import logging
 
-from app import crud
-from app import schemas
+from sqlmodel import Session
+
+from app import crud, schemas
 from app.core.config import settings
 from app.db import base  # noqa: F401
-from sqlmodel import Session
 
 logger = logging.getLogger(__name__)
 

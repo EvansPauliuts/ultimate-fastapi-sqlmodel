@@ -1,18 +1,14 @@
 from datetime import timedelta
 from typing import Any
 
-from app import crud
-from app import models
-from app import schemas
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlmodel import Session
+
+from app import crud, models, schemas
 from app.api import deps
 from app.core import security
 from app.core.config import settings
-from fastapi import APIRouter
-from fastapi import Depends
-from fastapi import HTTPException
-from fastapi import status
-from fastapi.security import OAuth2PasswordRequestForm
-from sqlmodel import Session
 
 router = APIRouter()
 

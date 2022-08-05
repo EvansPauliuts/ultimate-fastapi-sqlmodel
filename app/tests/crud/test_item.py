@@ -1,9 +1,9 @@
+from sqlmodel import Session
+
 from app import crud
-from app.schemas.item import ItemCreate
-from app.schemas.item import ItemUpdate
+from app.schemas.item import ItemCreate, ItemUpdate
 from app.tests.utils.user import create_random_user
 from app.tests.utils.utils import random_lower_string
-from sqlmodel import Session
 
 
 def test_create_item(session: Session) -> None:

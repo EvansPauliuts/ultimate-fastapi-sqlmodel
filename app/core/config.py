@@ -1,11 +1,8 @@
+import os
 import secrets
 from typing import Any
 
-from pydantic import AnyHttpUrl
-from pydantic import BaseSettings
-from pydantic import EmailStr
-from pydantic import PostgresDsn
-from pydantic import validator
+from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
@@ -50,8 +47,8 @@ class Settings(BaseSettings):
 
     class Config:
         case_sensitive = True
-        env_file = ".env"
-        # env_file_encoding = "utf-8"
+        env_file = os.path.expanduser('.env')
+        env_file_encoding = "utf-8"
 
 
 settings = Settings()

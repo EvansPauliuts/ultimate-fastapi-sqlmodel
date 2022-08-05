@@ -46,6 +46,28 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
 
+      - name: Create .env file
+        env:
+          PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
+          FIRST_SUPERUSER: ${{ secrets.FIRST_SUPERUSER }}
+          FIRST_SUPERUSER_PASSWORD: ${{ secrets.FIRST_SUPERUSER_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_SERVER: ${{ secrets.POSTGRES_SERVER }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          SQLMODEL_DATABASE_URI: ${{ secrets.SQLMODEL_DATABASE_URI }}
+        run: |
+          touch .env
+          echo PROJECT_NAME="$PROJECT_NAME" >> .env
+          echo FIRST_SUPERUSER="$FIRST_SUPERUSER" >> .env
+          echo FIRST_SUPERUSER_PASSWORD="$FIRST_SUPERUSER_PASSWORD" >> .env
+          echo POSTGRES_DB="$POSTGRES_DB" >> .env
+          echo POSTGRES_PASSWORD="$POSTGRES_PASSWORD" >> .env
+          echo POSTGRES_SERVER="$POSTGRES_SERVER" >> .env
+          echo POSTGRES_USER="$POSTGRES_USER" >> .env
+          echo SQLMODEL_DATABASE_URI="$SQLMODEL_DATABASE_URI" >> .env
+        shell: bash
+
       - name: Test with pytest
         run: |
           source .venv/bin/activate

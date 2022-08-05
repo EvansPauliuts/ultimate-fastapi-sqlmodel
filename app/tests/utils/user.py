@@ -1,9 +1,9 @@
+from sqlmodel import Session
+
 from app import crud
 from app.models.user import User
 from app.schemas.user import UserCreate
-from app.tests.utils.utils import random_email
-from app.tests.utils.utils import random_lower_string
-from sqlmodel import Session
+from app.tests.utils.utils import random_email, random_lower_string
 
 
 def create_random_user(db: Session) -> User:
