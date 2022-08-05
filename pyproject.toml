@@ -4,9 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Evans Pauliuts <pauliutsevans@gmail.com>"]
 
-packages = [
-    {include = "exec_scripts", from = "app"}
-]
+#packages = [
+#    {include = "exec_scripts", from = "app"}
+#]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -30,6 +30,7 @@ python-dotenv = "^0.20.0"
 pre-commit = "^2.20.0"
 SQLAlchemy = "^1.4.39"
 psycopg2 = "^2.9.3"
+redis = "^4.3.4"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.971"
@@ -40,6 +41,7 @@ flake8 = "^4.0.1"
 pytest = "^7.1.2"
 pytest-cov = "^3.0.0"
 toml = "^0.10.2"
+bandit = "^1.7.4"
 
 [tool.black]
 skip-string-normalization = true
@@ -54,5 +56,5 @@ line_length = 88
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry.scripts]
-ps = "app.exec_scripts.prestart:pre_config"
+#[tool.poetry.scripts]
+#ps = "app.exec_scripts.prestart:pre_config"

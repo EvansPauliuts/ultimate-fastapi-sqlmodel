@@ -1,13 +1,11 @@
 from typing import Any
 
-from app.core.security import get_password_hash
-from app.core.security import verify_password
+from sqlmodel import Session, select
+
+from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
 from app.models.user import User
-from app.schemas.user import UserCreate
-from app.schemas.user import UserUpdate
-from sqlmodel import select
-from sqlmodel import Session
+from app.schemas.user import UserCreate, UserUpdate
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):

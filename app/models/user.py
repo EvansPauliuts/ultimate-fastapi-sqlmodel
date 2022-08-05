@@ -2,10 +2,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import EmailStr
 from sqlalchemy.sql.schema import Column
-from sqlmodel import Field
-from sqlmodel import Relationship
-from sqlmodel import SQLModel
-from sqlmodel import VARCHAR
+from sqlmodel import VARCHAR, Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
     from .item import Item  # noqa: F401

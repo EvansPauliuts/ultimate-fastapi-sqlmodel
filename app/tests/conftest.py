@@ -1,17 +1,15 @@
 from typing import Generator
 
 import pytest
+from fastapi.testclient import TestClient
+from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel.pool import StaticPool
+from sqlmodel.sql.expression import Select, SelectOfScalar
+
 from app.api.deps import get_db
 from app.db.init_db import init_db
 from app.main import app
 from app.tests.utils.utils import get_superuser_token_headers
-from fastapi.testclient import TestClient
-from sqlmodel import create_engine
-from sqlmodel import Session
-from sqlmodel import SQLModel
-from sqlmodel.pool import StaticPool
-from sqlmodel.sql.expression import Select
-from sqlmodel.sql.expression import SelectOfScalar
 
 SelectOfScalar.inherit_cache = True  # type: ignore
 Select.inherit_cache = True  # type: ignore
