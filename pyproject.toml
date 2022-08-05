@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ultimate-fastapi-sqlmodel"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Evans Pauliuts <pauliutsevans@gmail.com>"]
 
