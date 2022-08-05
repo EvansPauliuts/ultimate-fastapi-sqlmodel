@@ -1,26 +1,22 @@
 app_root = ./app
-app_script = ./scripts
 tests_src = $(app_root)/tests
 
-isort = $(app_script)/format-imports.sh
-black = $(app_script)/format.sh
-flake8 = flake8 $(app_root) $(tests_src)
 mypy = mypy $(app_root)
 mypy_tests = mypy $(app_root) $(tests_src)
-lint = $(app_script)/lint.sh
 
-.PHONY: format check-format lint mypy mypy-tests test-local test-dev test-dev-cov clean poetry_version version runapp build help init_data
+.PHONY: black isort flake8 bandit mypy mypy-tests test test-xml clean poetry_version version runapp build help init_data
 
-format:
-	$(isort)
-	$(black)
+black:
+	poetry run black $(app_root) --check
 
-check-format:
-	$(isort) --check-only
-	$(black) --check
+isort:
+	poetry run isort $(app_root)
 
-lint:
-	$(lint)
+flake8:
+	poetry run flake8 $(app_root)
+
+bandit:
+	poetry run bandit $(app_root)
 
 mypy:
 	$(mypy)
@@ -28,17 +24,11 @@ mypy:
 mypy-tests:
 	$(mypy_tests)
 
-test-local:
-	pytest $(tests_src) --cov=$(app_root)
+test:
+	poetry run pytest --cov=$(app_root)
 
-test-dev:
-	pytest $(app_root)
-
-test-dev-cov:
-	$(app_script)/test-cov-html.sh
-	@echo "building coverage html"
-	@echo "opening coverage html in browser"
-	@open htmlcov/index.html
+test-xml:
+	poetry run pytest --cov=$(app_root) --cov-report=xml
 
 clean:
 	rm -rf `find . -name __pycache__`
