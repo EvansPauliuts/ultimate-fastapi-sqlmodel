@@ -4,7 +4,7 @@ tests_src = $(app_root)/tests
 mypy = mypy $(app_root)
 mypy_tests = mypy $(app_root) $(tests_src)
 
-.PHONY: black isort flake8 bandit mypy mypy-tests test test-xml clean poetry_version version runapp build help init_data
+.PHONY: black isort flake8 bandit mypy mypy-tests test test-xml clean version poetry_version runapp build help init_data
 
 black:
 	poetry run black $(app_root) --check
@@ -52,9 +52,14 @@ clean:
 poetry_version:
 	poetry version $(version)
 
-version: poetry_version
-	$(eval NEW_VERS := $(shell cat pyproject.toml | grep "^version = \"*\"" | cut -d'"' -f2))
-	@sed -i "" "s/__version__ = .*/__version__ = \"$(NEW_VERS)\"/g" $(app_root)/__init__.py
+version:
+	@poetry version $(v)
+	@git add pyproject.toml
+	@git commit -m "v$$(poetry version -s)"
+	@git tag v$$(poetry version -s)
+	@git push
+	@git push --tags
+	@poetry version
 
 init_data:
 	poetry run ps
