@@ -12,7 +12,7 @@ from app.core.config import settings
 router = APIRouter()
 
 
-@router.get("/", response_model=list[schemas.User], status_code=status.HTTP_200_OK)
+@router.get('/', response_model=list[schemas.User], status_code=status.HTTP_200_OK)
 def read_users(
     db: Session = Depends(deps.get_db), skip: int = 0, limit: int = 100
 ) -> Any:
@@ -20,7 +20,7 @@ def read_users(
     return users
 
 
-@router.post("/", response_model=schemas.User, status_code=status.HTTP_201_CREATED)
+@router.post('/', response_model=schemas.User, status_code=status.HTTP_201_CREATED)
 def create_user(
     *, db: Session = Depends(deps.get_db), user_in: schemas.UserCreate
 ) -> Any:
@@ -29,14 +29,14 @@ def create_user(
     if user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="The user with this username already exists in the system.",
+            detail='The user with this username already exists in the system.',
         )
 
     user = crud.user.create(db, obj_in=user_in)
     return user
 
 
-@router.put("/me", response_model=schemas.User, status_code=status.HTTP_200_OK)
+@router.put('/me', response_model=schemas.User, status_code=status.HTTP_200_OK)
 def update_user_me(
     *,
     db: Session = Depends(deps.get_db),
@@ -62,14 +62,14 @@ def update_user_me(
     return user
 
 
-@router.get("/me", response_model=schemas.User, status_code=status.HTTP_200_OK)
+@router.get('/me', response_model=schemas.User, status_code=status.HTTP_200_OK)
 def read_user_me(
     current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     return current_user
 
 
-@router.post("/open", response_model=schemas.User)
+@router.post('/open', response_model=schemas.User)
 def create_user_open(
     *,
     db: Session = Depends(deps.get_db),
@@ -80,7 +80,7 @@ def create_user_open(
     if not settings.USERS_OPEN_REGISTRATION:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Open user registration is forbidden on this server",
+            detail='Open user registration is forbidden on this server',
         )
 
     user = crud.user.get_by_email(db, email=email)
@@ -88,7 +88,7 @@ def create_user_open(
     if user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="The user with this username already exists in the system",
+            detail='The user with this username already exists in the system',
         )
 
     user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
@@ -97,7 +97,7 @@ def create_user_open(
     return user
 
 
-@router.get("/{user_id}", response_model=schemas.User, status_code=status.HTTP_200_OK)
+@router.get('/{user_id}', response_model=schemas.User, status_code=status.HTTP_200_OK)
 def read_user_by_id(
     user_id: int,
     current_user: models.User = Depends(deps.get_current_active_user),
@@ -117,7 +117,7 @@ def read_user_by_id(
     return user
 
 
-@router.put("/{user_id}", response_model=schemas.User, status_code=status.HTTP_200_OK)
+@router.put('/{user_id}', response_model=schemas.User, status_code=status.HTTP_200_OK)
 def update_user(
     *, db: Session = Depends(deps.get_db), user_id: int, user_in: schemas.UserUpdate
 ) -> Any:
@@ -126,7 +126,7 @@ def update_user(
     if not user:
         raise HTTPException(
             status_code=404,
-            detail="The user with this username does not exist in the system",
+            detail='The user with this username does not exist in the system',
         )
 
     user = crud.user.update(db, db_obj=user, obj_in=user_in)

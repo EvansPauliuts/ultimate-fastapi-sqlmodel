@@ -15,10 +15,10 @@ SelectOfScalar.inherit_cache = True  # type: ignore
 Select.inherit_cache = True  # type: ignore
 
 
-@pytest.fixture(name="session")
+@pytest.fixture(name='session')
 def session_fixture() -> Generator:
     engine = create_engine(
-        "sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool
+        'sqlite://', connect_args={'check_same_thread': False}, poolclass=StaticPool
     )
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
@@ -26,7 +26,7 @@ def session_fixture() -> Generator:
         yield session
 
 
-@pytest.fixture(name="client")
+@pytest.fixture(name='client')
 def client_fixture(session: Session) -> Generator:
     def get_session_override() -> Session:
         return session

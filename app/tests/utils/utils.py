@@ -7,20 +7,20 @@ from app.core.config import settings
 
 
 def random_lower_string() -> str:
-    return "".join(random.choices(string.ascii_lowercase, k=32))
+    return ''.join(random.choices(string.ascii_lowercase, k=32))
 
 
 def random_email() -> str:
-    return f"{random_lower_string()}@{random_lower_string()}.com"
+    return f'{random_lower_string()}@{random_lower_string()}.com'
 
 
 def get_superuser_token_headers(client: TestClient) -> dict[str, str]:
     login_data = {
-        "username": settings.FIRST_SUPERUSER,
-        "password": settings.FIRST_SUPERUSER_PASSWORD,
+        'username': settings.FIRST_SUPERUSER,
+        'password': settings.FIRST_SUPERUSER_PASSWORD,
     }
-    response = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    response = client.post(f'{settings.API_V1_STR}/login/access-token', data=login_data)
     data = response.json()
-    a_token = data["access_token"]
-    headers = {"Authorization": f"Bearer {a_token}"}
+    a_token = data['access_token']
+    headers = {'Authorization': f'Bearer {a_token}'}
     return headers

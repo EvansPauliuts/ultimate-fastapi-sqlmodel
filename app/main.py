@@ -6,18 +6,18 @@ from .core.config import settings
 from .db.session import session_db
 
 app = FastAPI(
-    title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
+    title=settings.PROJECT_NAME, openapi_url=f'{settings.API_V1_STR}/openapi.json'
 )
 
 
-@app.on_event("startup")
+@app.on_event('startup')
 def on_startup() -> None:
     session_db()
 
 
-@app.get("/ping")
+@app.get('/ping')
 def pong() -> dict[str, str]:
-    return {"ping": "pong!"}
+    return {'ping': 'pong!'}
 
 
 if settings.BACKEND_CORS_ORIGINS:
@@ -25,8 +25,8 @@ if settings.BACKEND_CORS_ORIGINS:
         CORSMiddleware,
         allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
         allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=['*'],
+        allow_headers=['*'],
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)

@@ -29,10 +29,10 @@ def init() -> Generator:
 
 
 def main() -> None:
-    logger.info("Initializing service")
+    logger.info('Initializing service')
     init()
-    logger.info("Service finished initializing")
+    logger.info('Service finished initializing')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

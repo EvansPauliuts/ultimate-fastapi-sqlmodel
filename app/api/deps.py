@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.db.session import engine
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.API_V1_STR}/login/access-token"
+    tokenUrl=f'{settings.API_V1_STR}/login/access-token'
 )
 
 
@@ -32,14 +32,14 @@ def get_current_user(
     except (jwt.JWSError, ValidationError):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Could not validate credentials",
+            detail='Could not validate credentials',
         )
 
     user = crud.user.get(db, item_id=token_data.sub)
 
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail='User not found'
         )
 
     return user
@@ -50,7 +50,7 @@ async def get_current_active_user(
 ):
     if not crud.user.is_active(current_user):
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user"
+            status_code=status.HTTP_400_BAD_REQUEST, detail='Inactive user'
         )
     return current_user
 

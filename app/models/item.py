@@ -11,5 +11,5 @@ class Item(SQLModel, table=True):
     title: str = Field(index=True)
     description: str = Field(index=True)
 
-    owner_id: int | None = Field(default=None, foreign_key="user.id")
-    owner: str | None = Relationship(back_populates="items")
+    owner_id: int | None = Field(default=None, foreign_key='user.id')
+    owner: str | None = Relationship(back_populates='items')
