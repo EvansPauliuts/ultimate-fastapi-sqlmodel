@@ -1,37 +1,48 @@
-app_root = ./app
-tests_src = $(app_root)/tests
+VENV                := .venv
+VENV_PYTHON         := $(VENV)/bin/python
+SYSTEM_PYTHON       := $(or $(shell which python3), $(shell which python))
+PYTHON              := $(or $(wildcard $(VENV_PYTHON)), $(SYSTEM_PYTHON))
+POETRY              := $(shell command -v poetry 2> /dev/null)
 
-mypy = mypy $(app_root)
-mypy_tests = mypy $(app_root) $(tests_src)
+APP_ROOT            := ./app
+TESTS_ROOT          := $(APP_ROOT)/tests
 
-.PHONY: black isort flake8 bandit mypy mypy-tests test test-xml clean version poetry_version runapp build help init_data
+MYPY                := mypy $(APP_ROOT)
+MYPY_TESTS          := $(MYPY) $(TESTS_ROOT)
+
+.PHONY: black isort flake8 bandit
 
 black:
-	poetry run black $(app_root) --check
+	$(POETRY) run black $(APP_ROOT) --check
 
 isort:
-	poetry run isort $(app_root)
+	$(POETRY) run isort $(APP_ROOT)
 
 flake8:
-	poetry run flake8 $(app_root)
+	$(POETRY) run flake8 $(APP_ROOT)
 
 bandit:
-	poetry run bandit $(app_root)
+	$(POETRY) run bandit $(APP_ROOT)
+
+.PHONY: mypy mypy-tests test test-vvv test-xml
 
 mypy:
-	$(mypy)
+	$(MYPY)
 
 mypy-tests:
-	$(mypy_tests)
+	$(MYPY_TESTS)
 
 test:
-	poetry run pytest --cov=$(app_root)
+	$(POETRY) run pytest --cov=$(APP_ROOT)
 
 test-vvv:
-	poetry run pytest --cov=$(app_root) -vvv
+	$(POETRY) run pytest --cov=$(APP_ROOT) -vvv
 
 test-xml:
-	poetry run pytest --cov=$(app_root) --cov-report=xml
+	$(POETRY) run pytest --cov=$(APP_ROOT) --cov-report=xml
+
+
+.PHONY: clean
 
 clean:
 	rm -rf `find . -name __pycache__`
@@ -49,24 +60,28 @@ clean:
 	rm -f .coverage.*
 	rm -rf build
 
+.PHONY: version poetry_version
+
 poetry_version:
-	poetry version $(version)
+	$(POETRY) version $(version)
 
 version:
-	@poetry version $(v)
+	$(POETRY) version $(v)
 	@git add pyproject.toml
-	@git commit -m "v$$(poetry version -s)"
-	@git tag v$$(poetry version -s)
+	@git commit -m "v$$(POETRY version -s)"
+	@git tag v$$(POETRY version -s)
 	@git push
 	@git push --tags
-	@poetry version
+	$(POETRY) version
+
+.PHONY: run build help init_data
 
 init_data:
-	poetry run ps
+	$(POETRY) run ps
 
-runapp:
-	poetry run run.sh
+run:
+	$(POETRY) run run.sh
 	@echo "Running!!!"
 
 build:
-	poetry build
+	$(POETRY) build

@@ -9,7 +9,7 @@ authors = ["Evans Pauliuts <pauliutsevans@gmail.com>"]
 #]
 
 [tool.poetry.dependencies]
-python = "^3.11.0"
+python = "^3.10.11"
 fastapi = "^0.79.0"
 uvicorn = "^0.18.2"
 python-multipart = "^0.0.5"
