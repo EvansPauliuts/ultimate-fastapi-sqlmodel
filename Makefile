@@ -85,3 +85,12 @@ run:
 
 build:
 	$(POETRY) build
+
+
+.PHONY: all-files autoupdate
+
+all-files:
+	pre-commit --all-files
+
+autoupdate:
+	pre-commit autoupdate
