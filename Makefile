@@ -10,7 +10,10 @@ TESTS_ROOT          := $(APP_ROOT)/tests
 MYPY                := mypy $(APP_ROOT)
 MYPY_TESTS          := $(MYPY) $(TESTS_ROOT)
 
-.PHONY: black isort flake8 bandit
+.PHONY: black isort flake8 bandit mypy
+
+mypy:
+	$(MYPY) .
 
 black:
 	$(POETRY) run black $(APP_ROOT) --check
@@ -24,10 +27,7 @@ flake8:
 bandit:
 	$(POETRY) run bandit $(APP_ROOT)
 
-.PHONY: mypy mypy-tests test test-vvv test-xml
-
-mypy:
-	$(MYPY)
+.PHONY: mypy-tests test test-vvv test-xml
 
 mypy-tests:
 	$(MYPY_TESTS)
